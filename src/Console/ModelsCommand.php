@@ -218,7 +218,7 @@ class ModelsCommand extends Command
                             $attachments = $model->getAttachedFiles();
 
                             foreach($attachments as $index => $attachment) {
-                                $this->setProperty($index, '\Czim\Paperclip\Attachment\Attachment', true, null, '', true);
+                                $this->setProperty($index, '\Czim\Paperclip\Attachment\Attachment', true, true, '', true);
                             }
                         }
                     }

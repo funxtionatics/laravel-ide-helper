@@ -206,6 +206,21 @@ class ModelsCommand extends Command
 
                     if ($hasDoctrine) {
                         $this->getPropertiesFromTable($model);
+                        
+                        // Check for Translatable model
+                        if (method_exists($model, 'getTranslationModelName')) {
+                            $className = $model->getTranslationModelName();
+                            $this->getPropertiesFromTable(new $className);
+                        }
+
+                        // Check for Stapler Attachments
+                        if (method_exists($model, 'getAttachedFiles')) {
+                            $attachments = $model->getAttachedFiles();
+
+                            foreach($attachments as $index => $attachment) {
+                                $this->setProperty($index, '\Czim\Paperclip\Attachment\Attachment', true, null, '', true);
+                            }
+                        }
                     }
 
                     if (method_exists($model, 'getCasts')) {
